@@ -29,6 +29,12 @@ public:
     const std::vector<Node<T>*>& getChildren() const;
 
     void addChild(Node<T>* child) ;
+
+    bool operator==(const Node<T> &other) const;
+
+    bool operator!=(const Node<T> &other) const;
+
+
 };
 
 template<typename T>
@@ -64,5 +70,16 @@ void Node<T>::addChild(Node<T> *child) {
         throw std::runtime_error("Maximum number of children exceeded");
     }
 }
+
+template<typename T>
+bool Node<T>::operator==(const Node<T> &other) const {
+    return value == other.value;
+}
+
+template<typename T>
+bool Node<T>::operator!=(const Node<T> &other) const {
+    return !(value == other.value);
+}
+
 
 #endif //CPP_EX4_NODE_HPP

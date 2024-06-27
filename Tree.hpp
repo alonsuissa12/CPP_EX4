@@ -22,8 +22,8 @@
 
 
 // todo: take care of const iterators
-// todo: add ++it and it++ (one is missing)
 //todo: add heap iterator
+// todo: add complex class
 
 template<typename T>
 class Tree {
@@ -35,11 +35,17 @@ private:
 public:
     explicit Tree(T rootValue, int maxChildren);
 
+
     explicit Tree(int maxChildren);
 
     explicit Tree();
 
     ~Tree();
+
+    int getMaxChildren() const {
+        return maxChildren;
+    }
+
 
     int add_root(Node<T> *);
 
@@ -111,6 +117,12 @@ public:
             next();
             return *this;
         }
+
+        DfsIterator operator++(int) {
+            DfsIterator temp = *this; // Save the current state
+            next(); // Increment the iterator
+            return temp; // Return the saved state
+        }
     };
 
     class PreOrderIterator : public MyIterator {
@@ -171,6 +183,12 @@ public:
         PreOrderIterator operator++() {
             next();
             return *this;
+        }
+
+        PreOrderIterator operator++(int) {
+            PreOrderIterator temp = *this; // Save the current state
+            next(); // Increment the iterator
+            return temp; // Return the saved state
         }
 
     };
@@ -252,6 +270,12 @@ public:
             return *this;
         }
 
+        PostOrderIterator operator++(int) {
+            PostOrderIterator temp = *this; // Save the current state
+            next(); // Increment the iterator
+            return temp; // Return the saved state
+        }
+
     };
 
     class InOrderIterator : public MyIterator {
@@ -330,6 +354,12 @@ public:
             return *this;
         }
 
+        InOrderIterator operator++(int) {
+            InOrderIterator temp = *this; // Save the current state
+            next(); // Increment the iterator
+            return temp; // Return the saved state
+        }
+
     };
 
     class BfsOrderIterator : public MyIterator {
@@ -379,6 +409,12 @@ public:
         BfsOrderIterator operator++() {
             next();
             return *this;
+        }
+
+        BfsOrderIterator operator++(int) {
+            BfsOrderIterator temp = *this; // Save the current state
+            next(); // Increment the iterator
+            return temp; // Return the saved state
         }
 
     };
@@ -457,6 +493,7 @@ int Tree<T>::add_root(Node<T> *newRoot) {
         root = newRoot;
     else {
         newRoot->addChild(root);
+        root = newRoot;
     }
     return 0;
 }
@@ -468,8 +505,8 @@ Node<T> *Tree<T>::getRoot() const {
 
 template<typename T>
 int Tree<T>::add_sub_node(Node<T> *dad, Node<T> *child) {
-    if (child->getMaxChildren() > maxChildren)
-        throw std::runtime_error("The node has too large maximum children number ");
+    if (child->getMaxChildren() != maxChildren)
+        throw std::runtime_error("The node maximum children number is not fit to this tree");
     dad->addChild(child);
     return 0;
 }
