@@ -35,6 +35,12 @@ public:
     // Overload the comparison operator (<)
     bool operator<(const Complex& other) const;
 
+    // Overload the comparison operator (<=)
+    bool operator<=(const Complex& other) const;
+
+    // Overload the comparison operator (>=)
+    bool operator>=(const Complex& other) const;
+
     // Overload the stream insertion operator (for output)
     friend std::ostream& operator<<(std::ostream& out, const Complex& c);
 

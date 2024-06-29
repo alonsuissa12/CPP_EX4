@@ -28,6 +28,14 @@ bool Complex::operator<(const Complex& other) const{
     return other > *this;
 }
 
+bool Complex::operator>=(const Complex& other) const {
+    return (other < *this || other == *this) ;
+}
+
+bool Complex::operator<=(const Complex& other) const{
+    return (other > *this || other == *this) ;
+}
+
 std::ostream& operator<<(std::ostream& out, const Complex& c) {
     out << "(" << c.real << " + " << c.imag << "i)";
     return out;

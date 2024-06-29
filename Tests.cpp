@@ -4,10 +4,94 @@
 #include "doctest.h"
 #include "Node.hpp"
 #include "Tree.hpp"
+#include "Complex.hpp"
 
 using namespace doctest;
 using namespace std;
 
+// ##################################### -  complex - #####################################
+
+TEST_CASE("Complex == operator"){
+    Complex c1(1,3);
+    Complex c2(1,3);
+    Complex c3(4,6);
+    Complex c4(5,7);
+
+    CHECK_EQ(c1,c2);
+    CHECK_FALSE((c3 == c4));
+}
+
+TEST_CASE("Complex + operator") {
+    Complex c1(1.0, 2.0);
+    Complex c2(2.0, 3.0);
+    Complex result = c1 + c2;
+    CHECK_EQ(result, Complex(3.0, 5.0));
+}
+
+TEST_CASE("Complex - operator") {
+    Complex c1(5.0, 7.0);
+    Complex c2(2.0, 3.0);
+    Complex result = c1 - c2;
+    CHECK_EQ(result , Complex(3.0, 4.0));
+}
+
+TEST_CASE("Complex != operator") {
+    Complex c1(1.0, 2.0);
+    Complex c2(1.0, 2.0);
+    Complex c3(2.0, 3.0);
+
+    CHECK_FALSE((c1 != c2));
+    CHECK((c1 != c3));
+}
+
+TEST_CASE("Complex > operator") {
+    Complex c1(2.0, 2.0);
+    Complex c2(1.0, 1.0);
+    CHECK((c1 > c2));
+    CHECK_FALSE((c2 > c1));
+}
+
+TEST_CASE("Complex < operator") {
+    Complex c1(1.0, 1.0);
+    Complex c2(2.0, 2.0);
+    CHECK((c1 < c2));
+    CHECK_FALSE((c2 < c1));
+}
+
+TEST_CASE("Complex >= operator - equal case") {
+    Complex c1(2.0, 2.0);
+    Complex c2(2.0, 2.0);
+    CHECK((c1 >= c2));
+}
+
+TEST_CASE("Complex >= operator - larger case") {
+    Complex c1(2.0, 2.0);
+    Complex c2(3.0, 0.0);
+
+    CHECK((c1 >= c2));
+    CHECK_FALSE((c2 >= c1));
+}
+
+TEST_CASE("Complex <= operator - equal case") {
+    Complex c1(2.0, 2.0);
+    Complex c2(2.0, 2.0);
+    CHECK((c1 <= c2));
+}
+
+TEST_CASE("Complex <= operator - larger case") {
+    Complex c1(2.0, 2.0);
+    Complex c2(3.0, 0.0);
+
+    CHECK((c2 <= c1));
+    CHECK_FALSE((c1 <= c2));
+}
+
+TEST_CASE("Complex stream insertion operator") {
+    Complex c1(1.0, 2.0);
+    std::ostringstream oss;
+    oss << c1;
+    CHECK(oss.str() == "(1 + 2i)");
+}
 
 // ##################################### - NODE - #####################################
 

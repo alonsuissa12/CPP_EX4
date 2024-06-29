@@ -32,8 +32,8 @@ all: $(TARGET) $(TEST_TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LDFLAGS)
 
-$(TEST_TARGET): Tests.o TestCounter.o
-	$(CXX) -o $(TEST_TARGET) Tests.o TestCounter.o $(LDFLAGS)
+$(TEST_TARGET): Tests.o TestCounter.o Complex.o
+	$(CXX) -o $(TEST_TARGET) Tests.o TestCounter.o Complex.o $(LDFLAGS)
 
 # Compile the source files
 %.o: %.cpp
@@ -47,7 +47,7 @@ clean:
 tree: all
 	./exe
 
-test: $(TEST_TARGET) Tree.hpp Node.hpp
+test: $(TEST_TARGET) Tree.hpp Node.hpp Complex.cpp
 	./tests
 
 .PHONY: all clean tree test
