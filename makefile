@@ -20,7 +20,7 @@ LDFLAGS := $(shell $(WX_CONFIG) --libs)
 TARGET := exe
 TEST_TARGET := tests
 # Source files
-SRCS := demo.cpp
+SRCS := demo.cpp Complex.cpp
 
 # Object files
 OBJS := $(SRCS:.cpp=.o)

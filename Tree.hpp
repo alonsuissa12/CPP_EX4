@@ -11,6 +11,7 @@
 
 #include <wx/wx.h>
 #include <wx/dc.h>
+#include <wx/string.h>
 #include <wx/dcbuffer.h>
 #include <vector>
 #include <stdexcept>
@@ -19,11 +20,11 @@
 #include <functional>
 #include "Node.hpp"
 #include <iostream>
+#include <sstream>
 
 
 // todo: take care of const iterators
-//todo: add heap iterator
-// todo: add complex class
+// todo: add heap iterator
 
 template<typename T>
 class Tree {
@@ -469,7 +470,7 @@ public:
 template<typename T>
 Tree<T>::Tree(T rootValue, int maxChildren)
         : maxChildren(maxChildren) {
-    root = new Node<T>(maxChildren, rootValue);
+    root = new Node<T>(rootValue,maxChildren);
 }
 
 template<typename T>
@@ -523,8 +524,12 @@ void Tree<T>::drawNode(wxDC &dc, Node<T> *node, int x, int y, int width, int hei
     if (!node) return;
 
     // Draw the node value
-    wxString nodeValue = wxString::Format("%d", node->getValue());
-    dc.DrawText(nodeValue, x, y);
+    T nodeValue = node->getValue();
+    std::ostringstream oss;
+    oss << nodeValue;
+    std::string str = oss.str();
+    wxString wxStr(str);
+    dc.DrawText(wxStr, x, y);
 
     int numChildren = node->getCurNumOfChildren();
     int childWidth = width / (numChildren + 1);

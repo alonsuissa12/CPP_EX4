@@ -16,7 +16,7 @@ private:
     T value;
     std::vector<Node<T> *> children;
 public:
-    Node(int maxChildren, T value) : maxChildren(maxChildren), value(value),curNumOfChildren(0) {}
+    Node(T value,int maxChildren) : maxChildren(maxChildren), value(value),curNumOfChildren(0) {}
     explicit Node(T value):maxChildren(2),value(value),curNumOfChildren(0){};
     ~Node();
 

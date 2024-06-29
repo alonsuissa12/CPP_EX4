@@ -1,6 +1,7 @@
 #include <wx/wx.h>
 #include "Tree.hpp"
 #include "Node.hpp"
+#include "Complex.hpp"
 
 #define WIDTH 1200
 #define HIGHT 800
@@ -20,7 +21,7 @@ public:
     void OnPaint(wxPaintEvent &event);
 
 private:
-    Tree<int> *tree; // Pointer to a tree of integers
+    Tree<Complex> *tree; // Pointer to a tree of integers
 
 wxDECLARE_EVENT_TABLE();
 };
@@ -55,24 +56,34 @@ MyFrame::MyFrame(const wxString &title)
     // Center the window on the screen
     Centre();
     // Create a sample tree
-    tree = new Tree<int>(1, 3); // Create a tree with root value 1 and some branching factor
-    Node<int> *root = tree->getRoot(); // Get the root node
-    Node<int> *child1 = new Node<int>(3, 2); // Create child node with value 3 and some branching factor
-    Node<int> *child2 = new Node<int>(3, 2); // Create another child node
+    Complex *cRoot = new Complex(0,0);
+    Complex *c1 = new Complex(1,1);
+    Complex *c2 = new Complex(2,2);
+    Complex *c3 = new Complex(3,3);
+    Complex *c4 = new Complex(4,4);
+    Complex *c5 = new Complex(5,5);
+    Complex *c6 = new Complex(6,6);
+    Complex *c7 = new Complex(7,7);
+    Complex *c8 = new Complex(8,8);
+
+    tree = new Tree<Complex>(*cRoot, 3); // Create a tree with root value 1 and some branching factor
+    Node<Complex> *root = tree->getRoot(); // Get the root node
+    Node<Complex> *child1 = new Node<Complex>(*c1, 3); // Create child node with value 3 and some branching factor
+    Node<Complex> *child2 = new Node<Complex>(*c2, 3); // Create another child node
 
     // Add children to the root
     tree->add_sub_node(root, child1);
     tree->add_sub_node(root, child2);
 
     // Add grandchildren to the first child
-    tree->add_sub_node(child1, new Node<int>(3, 2));
-    tree->add_sub_node(child1, new Node<int>(3, 2));
-    tree->add_sub_node(child1, new Node<int>(3, 2));
+    tree->add_sub_node(child1, new Node<Complex>(*c3, 3));
+    tree->add_sub_node(child1, new Node<Complex>(*c4,3));
+    tree->add_sub_node(child1, new Node<Complex>(*c5,3));
 
     // Add grandchildren to the second child
-    tree->add_sub_node(child2, new Node<int>(3, 2));
-    tree->add_sub_node(child2, new Node<int>(3, 2));
-    tree->add_sub_node(child2, new Node<int>(3, 2));
+    tree->add_sub_node(child2, new Node<Complex>(*c6,3));
+    tree->add_sub_node(child2, new Node<Complex>(*c7,3));
+    tree->add_sub_node(child2, new Node<Complex>(*c8,3));
 }
 
 // Event handler for paint events
@@ -81,5 +92,4 @@ void MyFrame::OnPaint(wxPaintEvent &event) {
     dc.Clear(); // Clear the drawing area
     // Draw the tree starting from the specified coordinates
     tree->drawTree(dc, WIDTH / 2, 50, WIDTH, HIGHT);
-    // std::cout << tree; // Optionally, print the tree to the console
 }
