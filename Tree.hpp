@@ -605,7 +605,7 @@ void Tree<T>::drawNode(wxDC &dc, Node<T> *node, int x, int y, int width, int hei
 
     int numChildren = node->getCurNumOfChildren();
     int childWidth = width / (numChildren + 1);
-    int childX = x - (numChildren * childWidth / 2);
+    int childX = x - (numChildren * childWidth /2 -(childWidth/2));
 
     for (Node<T> *child : node->getChildren()) {
         int childY = y + 50;  // Adjust the vertical distance between levels as needed

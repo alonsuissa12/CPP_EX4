@@ -103,7 +103,7 @@ MyFrame::MyFrame(const wxString &title)
     for (auto it = treeBinary->begin_post_order(); it != treeBinary->end_post_order(); ++it) {
         std::cout<< (*it)->getValue() << " ";
     }
-    std::cout<<" \n";
+    std::cout<<"  \n";
 
 
     treeBinaryString = new Tree<std::string>("root", 2);

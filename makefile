@@ -44,7 +44,7 @@ $(TEST_TARGET): Tests.o TestCounter.o Complex.o
 # Clean up build files
 clean:
 	rm -f $(OBJS) $(TARGET) $(TEST_TARGET) Tests.o TestCounter.o
-tree: all
+tree: $(TARGET) Tree.hpp demo.cpp Node.hpp Complex.cpp
 	./exe
 
 test: $(TEST_TARGET) Tree.hpp Node.hpp Complex.cpp
