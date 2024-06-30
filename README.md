@@ -1,7 +1,7 @@
 # Tree Visualization Project
 
 ## Goal of the Project
-The goal of this project is to visualize different types of trees using wxWidgets, demonstrating hierarchical data structures and their graphical representation. Three types of trees are implemented: a generic tree (`Tree<T>`), a binary tree (`Tree<int>`), and a binary tree of strings (`Tree<std::string>`).
+The goal of this project is to scan and visualize different types of trees using one generic class.
 
 ## Hierarchy of Classes
 ### Tree Visualization Classes
