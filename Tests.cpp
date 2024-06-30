@@ -1,4 +1,4 @@
-// 211344015 alonsuissa12@gmai.com
+// 211344015 alonsuissa12@gmail.com
 // Created by alon on 6/27/24.
 //
 #include "doctest.h"
