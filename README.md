@@ -16,7 +16,7 @@ The goal of this project is to scan and visualize different types of trees using
 
 ### Data Structures
 1. **Tree<T>**: Templated class representing a generic tree structure.
-   - **Iterators**: Provided for different tree traversals:
+   - **Iterators**: inner classes of Tree. Provided for different tree traversals:
      - `begin_pre_order()`, `end_pre_order()`
      - `begin_post_order()`, `end_post_order()`
      - `begin_in_order()`, `end_in_order()`
