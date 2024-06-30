@@ -24,6 +24,8 @@ bool Complex::operator>(const Complex& other) const {
     return (real + imag) * (real + imag) > (other.real + other.imag) * (other.real + other.imag);
 }
 
+
+
 bool Complex::operator<(const Complex& other) const{
     return other > *this;
 }

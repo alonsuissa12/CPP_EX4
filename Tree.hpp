@@ -63,7 +63,7 @@ public:
 
         virtual bool hasNext() const = 0;
 
-        virtual Node<T> *next() = 0;
+        virtual T next() = 0;
     };
 
 // Iterator class for DFS
@@ -81,7 +81,7 @@ public:
             return !nodeStack.empty();
         }
 
-        Node<T> *next() override {
+        T next() override {
             if (!hasNext()) {
                 throw std::out_of_range("No more elements in the iterator");
             }
@@ -93,7 +93,7 @@ public:
                 nodeStack.push(child);
             }
 
-            return currentNode;
+            return currentNode->getValue();
         }
 
         bool operator==(const DfsIterator &other) const {
@@ -141,7 +141,7 @@ public:
             return !nodeStack.empty();
         }
 
-        Node<T> *next() override {
+        T next() override {
             if (!hasNext()) {
                 throw std::out_of_range("No more elements in the iterator");
             }
@@ -160,7 +160,7 @@ public:
                     nodeStack.push(child);
                 }
             }
-            return currentNode;
+            return currentNode->getValue();
         }
 
         bool operator==(const PreOrderIterator &other) const {
@@ -230,7 +230,7 @@ public:
             return !nodeStack.empty();
         }
 
-        Node<T> *next() override {
+        T next() override {
             if (!hasNext()) {
                 throw std::out_of_range("No more elements in the iterator");
             }
@@ -238,14 +238,14 @@ public:
             Node<T> *currentNode = nodeStack.top();
             nodeStack.pop();
             if (maxChildNum == 2) {
-                return currentNode;
+                return currentNode->getValue();
             } else { // dfs like iterator
                 auto children = currentNode->getChildren();
                 for (auto child: children) {
                     nodeStack.push(child);
                 }
             }
-            return currentNode;
+            return currentNode->getValue();
         }
 
         bool operator==(const PostOrderIterator &other) const {
@@ -314,7 +314,7 @@ public:
             return !nodeStack.empty();
         }
 
-        Node<T> *next() override {
+        T next() override {
             if (!hasNext()) {
                 throw std::out_of_range("No more elements in the iterator");
             }
@@ -322,14 +322,14 @@ public:
             Node<T> *currentNode = nodeStack.top();
             nodeStack.pop();
             if (maxChildNum == 2) {
-                return currentNode;
+                return currentNode -> getValue();
             } else { // dfs like iterator
                 auto children = currentNode->getChildren();
                 for (auto child: children) {
                     nodeStack.push(child);
                 }
             }
-            return currentNode;
+            return currentNode->getValue();
         }
 
         bool operator==(const InOrderIterator &other) const {
@@ -377,7 +377,7 @@ public:
             return !nodeQueue.empty();
         }
 
-        Node<T> *next() override {
+        T next() override {
             if (!hasNext()) {
                 throw std::out_of_range("No more elements in the iterator");
             }
@@ -386,7 +386,7 @@ public:
             for (int i = 0; i < cur->getCurNumOfChildren(); i++) {
                 nodeQueue.push(cur->getChildren()[i]);
             }
-            return cur;
+            return cur->getValue();
         }
 
         bool operator==(const BfsOrderIterator &other) const {
@@ -419,6 +419,78 @@ public:
         }
 
     };
+
+    class MinHeapIterator : public MyIterator {
+    private:
+
+        std::priority_queue<T, std::vector<T>, std::greater<T>> heap;
+    public:
+        explicit MinHeapIterator(Node<T> *root) {
+            if (root) {
+                std::stack<Node<T>*> stack;
+                stack.push(root);
+                while (!stack.empty()){
+                    Node<T> * cur = stack.top();
+                    stack.pop();
+                    heap.push(cur->getValue());
+                    for(auto child: cur->getChildren() ){
+                        stack.push(child);
+                    }
+                }
+            }
+        }
+
+        bool hasNext() const override {
+            return !heap.empty();
+        }
+
+        T next() override {
+            if (!hasNext()) {
+                throw std::out_of_range("No more elements in the iterator");
+            }
+            T cur = heap.top();
+            heap.pop();
+            return cur;
+        }
+
+        bool operator==(MinHeapIterator &other) const {
+            if (heap.empty() && other.heap.empty()) {
+                return true;
+            }
+            if (heap.empty() || other.heap.empty()) {
+                return false;
+            }
+            return heap.top() == heap.top();
+        }
+
+        bool operator!=( MinHeapIterator &other) const {
+            return !(*this == other);
+        }
+
+        T operator*() {
+            return this->heap.top();
+        }
+
+        MinHeapIterator operator++() {
+            next();
+            return *this;
+        }
+
+        MinHeapIterator operator++(int) {
+            MinHeapIterator temp = *this; // Save the current state
+            next(); // Increment the iterator
+            return temp; // Return the saved state
+        }
+
+    };
+
+    std::pair<MinHeapIterator, MinHeapIterator> myHeap() {
+        return {MinHeapIterator(root), MinHeapIterator(nullptr)};
+    }
+
+    std::pair<MinHeapIterator, MinHeapIterator> myHeap() const {
+        return {MinHeapIterator(root), MinHeapIterator(nullptr)};
+    }
 
     DfsIterator begin_dfs_scan() { return DfsIterator(root); }
 
