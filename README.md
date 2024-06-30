@@ -13,9 +13,17 @@ The goal of this project is to scan and visualize different types of trees using
      - `Tree<std::string>` (`treeBinaryString`)
    - Handles paint events to draw trees on the frame.
 
+
 ### Data Structures
 1. **Tree<T>**: Templated class representing a generic tree structure.
-2. **Node<T>**: Templated class representing a node in the tree structure.
+   - **Iterators**: Provided for different tree traversals:
+     - `begin_pre_order()`, `end_pre_order()`
+     - `begin_post_order()`, `end_post_order()`
+     - `begin_in_order()`, `end_in_order()`
+
+2. **Node<T>**: Represents a node in the tree, storing data of type `T` and managing child nodes.
+   - **Methods**: Includes methods for adding children, accessing node data, and comparison operators.
+
 
 ### Other Supporting Classes
 - **Complex**: Represents complex numbers.
