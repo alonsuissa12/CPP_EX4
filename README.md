@@ -35,6 +35,7 @@ The goal of this project is to visualize different types of trees using wxWidget
 -cd repository
 
 2. **Compile the Project:**
+- Replace in the makefile `g++` with your compiler command if different.
 - type "make tree" on the terminal
 This will launch the application, displaying the graphical visualization of the trees.
 
