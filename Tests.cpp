@@ -669,13 +669,6 @@ TEST_CASE("inOrder Iterator Test - non binary (big tree)") {
 
 }
 
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-
-#include "doctest.h"
-#include "Node.hpp"
-#include "Complex.hpp"
-
-
 TEST_CASE("MinHeap Iterator Test - Simple Tree of Complex") {
     Tree<Complex> *tree = new Tree<Complex>(Complex(3.0, 4.0), 2);
     Node<Complex> *root = tree->getRoot();
